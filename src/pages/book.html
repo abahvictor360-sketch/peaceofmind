@@ -1,0 +1,35 @@
+<!-- {"page":"book","title":"Book a Therapy Session Online — peaceofmind","description":"Book an online or in-person therapy session in minutes. Choose your therapist, date and time — your first consultation is free."} -->
+<section class="page-hero" style="padding-bottom:64px">
+  <div class="container">
+    <span class="tag tag--dark glass">{{icon:cal}} Book a session</span>
+    <h1>Let's find a time that works for you</h1>
+    <p>Choose a therapist, pick a slot, and you're set. Your first 15-minute consultation is free.</p>
+  </div>
+</section>
+<section class="section" style="padding-top:48px">
+  <div class="container book">
+    <div class="card reveal">
+      <p class="step-label" style="margin-top:0">01 — Choose your therapist</p>
+      <div class="therapists">
+        <button class="therapist" type="button" data-name="Dr. Amara Okafor" aria-pressed="false"><img src="assets/img/listen-warm.webp" alt=""><span>Dr. Amara Okafor</span><small>Anxiety · CBT</small></button>
+        <button class="therapist" type="button" data-name="Kemi Adeyemi" aria-pressed="false"><img src="assets/img/mindful-prayer.webp" alt=""><span>Kemi Adeyemi</span><small>Mindfulness</small></button>
+        <button class="therapist" type="button" data-name="Daniel Mensah" aria-pressed="false"><img src="assets/img/listen-yellow.webp" alt=""><span>Daniel Mensah</span><small>Burnout · Stress</small></button>
+      </div>
+      <p class="step-label">02 — Pick a date &amp; time</p>
+      <div class="field"><label for="date">Date</label><input type="date" id="date"></div>
+      <div class="slots">
+        <button class="slot" type="button" aria-pressed="false">9:00 AM</button><button class="slot" type="button" aria-pressed="false">10:30 AM</button><button class="slot" type="button" aria-pressed="false">12:00 PM</button><button class="slot" type="button" aria-pressed="false">1:30 PM</button>
+        <button class="slot" type="button" aria-pressed="false">3:00 PM</button><button class="slot" type="button" aria-pressed="false">4:30 PM</button><button class="slot" type="button" aria-pressed="false">6:00 PM</button><button class="slot" type="button" aria-pressed="false">7:30 PM</button>
+      </div>
+      <p class="step-label">03 — Session details</p>
+      <div class="field"><label for="session-type">Format</label><select id="session-type"><option>Online video</option><option>In person</option><option>Phone call</option></select></div>
+      <div class="field"><label for="focus">Focus</label><select id="focus"><option>Anxiety Reset</option><option>Mindful Body</option><option>Rest &amp; Restore</option><option>Daily Stillness</option><option>Burnout Recovery</option><option>1:1 Therapy</option><option>Sound Healing</option><option>Inner Peace</option><option>Calm Retreat</option></select></div>
+    </div>
+    <aside class="card summary reveal">
+      <h2>Your session</h2>
+      <dl><dt>Therapist</dt><dd data-sum="therapist">—</dd><dt>Date</dt><dd data-sum="date">—</dd><dt>Time</dt><dd data-sum="time">—</dd><dt>Format</dt><dd data-sum="type">—</dd><dt>Price</dt><dd>Free consultation</dd></dl>
+      <button class="btn btn--dark btn--block" id="confirm" type="button" disabled>Confirm Booking <span class="ico">{{icon:arrow}}</span></button>
+      <p style="font-size:13px;color:var(--muted);margin-top:12px">You'll be asked to log in or create an account to confirm.</p>
+    </aside>
+  </div>
+</section>

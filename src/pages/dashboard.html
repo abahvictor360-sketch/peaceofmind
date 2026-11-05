@@ -1,0 +1,63 @@
+<!-- {"page":"dashboard","title":"My Dashboard — peaceofmind","description":"Your peaceofmind member dashboard: sessions, mood tracking, breathing and journal.","nav":"dark","bodyClass":"dash-body","noindex":true} -->
+<main class="dash">
+  <div class="container">
+    <div class="dash__head">
+      <div><span class="tag" id="today">Today</span><h1 style="margin-top:14px"><span id="greet">Hello</span>, <span data-user-name>friend</span></h1><p>Here's your space for today. Small steps count.</p></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn btn--dark" href="book.html">Book a Session <span class="ico">{{icon:cal}}</span></a>
+        <a class="btn btn--sand btn--plain" href="#" data-logout>Log out</a>
+      </div>
+    </div>
+    <div class="dash__grid">
+      <div class="card welcome span-8">
+        <img src="assets/img/listen-warm-cutout.webp" alt="">
+        <div><span class="tag tag--dark glass">Daily check-in</span><h2 style="font-size:28px;margin-top:14px;display:block">How are you feeling right now?</h2></div>
+        <div class="mood glass glass--refract" style="width:min(420px,100%)">
+          <div class="chips" data-mood>
+            <button class="chip" type="button" aria-pressed="false">Calm</button>
+            <button class="chip" type="button" aria-pressed="false">Overwhelmed</button>
+            <button class="chip" type="button" aria-pressed="false">Stressed</button>
+            <button class="chip" type="button" aria-pressed="false">Hopeful</button>
+            <button class="chip" type="button" aria-pressed="false">Happy</button>
+            <button class="chip" type="button" aria-pressed="false">Sadness</button>
+          </div>
+          <p class="mood__quote">“Tap a feeling to log it — patterns appear over the week.”</p>
+        </div>
+      </div>
+      <div class="card span-4">
+        <h2>Your week</h2>
+        <div class="kpis"><div class="kpi"><strong id="kpi-sessions">0</strong><span>Sessions</span></div><div class="kpi"><strong id="kpi-checkins">0</strong><span>Check-ins</span></div><div class="kpi"><strong id="kpi-journal">0</strong><span>Entries</span></div></div>
+        <div class="week" id="week" style="margin-top:18px"></div>
+        <p id="last-mood" style="font-size:13px;color:var(--muted);margin-top:10px"></p>
+      </div>
+      <div class="card span-6">
+        <h2>Upcoming sessions <a href="book.html">+ New</a></h2>
+        <div class="list" id="sessions"></div>
+      </div>
+      <div class="card span-6">
+        <h2>Breathe with me</h2>
+        <div class="breath">
+          <div class="breath__orb" id="orb"><span id="orb-label">Ready</span></div>
+          <button class="btn btn--dark" id="breathe-btn" type="button"><span>Start breathing</span><span class="ico">{{icon:spark}}</span></button>
+        </div>
+      </div>
+      <div class="card span-6">
+        <h2>My programs <a href="programs.html">Browse</a></h2>
+        <div class="list">
+          <div class="list-item"><img src="assets/img/listen-sky.webp" alt=""><div><b>Anxiety Reset</b><small>Week 3 of 8</small><div class="progress"><i style="width:38%"></i></div></div></div>
+          <div class="list-item"><img src="assets/img/reading-calm.webp" alt=""><div><b>Rest &amp; Restore</b><small>Week 1 of 4</small><div class="progress"><i style="width:20%"></i></div></div></div>
+          <div class="list-item"><img src="assets/img/park-meditation.webp" alt=""><div><b>Daily Stillness</b><small>Day 12 of 30</small><div class="progress"><i style="width:40%"></i></div></div></div>
+        </div>
+      </div>
+      <div class="card span-6">
+        <h2>Private journal</h2>
+        <form id="journal-form" class="field" style="margin:0">
+          <label class="sr-only" for="journal-text">Journal entry</label>
+          <textarea id="journal-text" placeholder="What's on your mind today?"></textarea>
+          <button class="btn btn--sand btn--plain" type="submit" style="justify-self:start">Save entry</button>
+        </form>
+        <div class="journal-list" id="journal-list"></div>
+      </div>
+    </div>
+  </div>
+</main>

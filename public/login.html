@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Log In or Sign Up — peaceofmind</title>
+<meta name="description" content="Log in to your peaceofmind account or create one to book therapy sessions, track your mood and access guided mindfulness programs.">
+<meta name="keywords" content="online therapy, mental wellness, mindfulness, meditation, anxiety support, stress relief, therapist booking, self-care app, emotional wellbeing, peaceofmind">
+<meta name="author" content="peaceofmind">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://peaceofmind-wellness.vercel.app/login">
+<meta name="theme-color" content="#4a1c08">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="peaceofmind">
+<meta property="og:title" content="Log In or Sign Up — peaceofmind">
+<meta property="og:description" content="Log in to your peaceofmind account or create one to book therapy sessions, track your mood and access guided mindfulness programs.">
+<meta property="og:url" content="https://peaceofmind-wellness.vercel.app/login">
+<meta property="og:image" content="https://peaceofmind-wellness.vercel.app/assets/img/og-cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Log In or Sign Up — peaceofmind">
+<meta name="twitter:description" content="Log in to your peaceofmind account or create one to book therapy sessions, track your mood and access guided mindfulness programs.">
+<meta name="twitter:image" content="https://peaceofmind-wellness.vercel.app/assets/img/og-cover.jpg">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+
+</head>
+<body data-page="login">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="liquid-refract" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency="0.008 0.012" numOctaves="2" seed="7" result="noise"/><feGaussianBlur in="noise" stdDeviation="2" result="soft"/><feDisplacementMap in="SourceGraphic" in2="soft" scale="18" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+
+<main class="auth">
+  <section class="auth__panel">
+    <a class="logo" href="index.html" aria-label="Back to peaceofmind home"><svg class="logo__mark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="none" stroke="currentColor" stroke-opacity=".35"/><circle cx="16" cy="16" r="9" fill="#d98a3d"/></svg>peaceofmind</a>
+    <form class="auth__form" id="auth-form" novalidate>
+      <h1 id="auth-title">Welcome back</h1>
+      <p id="auth-sub">Log in to continue your journey to a healthier mind.</p>
+      <div class="tabs" role="tablist">
+        <button type="button" role="tab" data-mode="login" aria-selected="true">Log In</button>
+        <button type="button" role="tab" data-mode="signup" aria-selected="false">Sign Up</button>
+      </div>
+      <div class="form-msg" id="form-msg" role="alert"></div>
+      <div class="field" id="name-field" hidden><label for="name">Full name</label><input id="name" name="name" autocomplete="name" placeholder="Ada Lovelace"></div>
+      <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required></div>
+      <div class="field"><label for="password">Password</label><div class="pw"><input id="password" name="password" type="password" autocomplete="current-password" placeholder="At least 6 characters" required minlength="6"><button type="button" id="toggle-pw">Show</button></div></div>
+      <div class="row-between"><label class="check"><input type="checkbox" checked> Remember me</label><a href="#" id="forgot">Forgot password?</a></div>
+      <button class="btn btn--dark btn--block" type="submit"><span id="auth-submit-label">Log In</span><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 17l5-5-5-5M13 17l5-5-5-5"/></svg></span></button>
+      <div class="divider">or continue with</div>
+      <div class="social">
+        <button type="button" data-demo><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.5 12.3c0-.8-.1-1.5-.2-2.2H12v4.2h5.9a5 5 0 01-2.2 3.3v2.7h3.6c2-1.9 3.2-4.7 3.2-8z"/><path fill="#34A853" d="M12 23c3 0 5.5-1 7.3-2.7l-3.6-2.7c-1 .7-2.2 1-3.7 1-2.9 0-5.3-1.9-6.2-4.5H2.1V17A11 11 0 0012 23z"/><path fill="#FBBC05" d="M5.8 14.1a6.6 6.6 0 010-4.2V7.1H2.1a11 11 0 000 9.8z"/><path fill="#EA4335" d="M12 5.4c1.6 0 3 .6 4.2 1.6l3.1-3.1A11 11 0 002.1 7.1l3.7 2.8C6.7 7.3 9.1 5.4 12 5.4z"/></svg> Google</button>
+        <button type="button" data-demo><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9a4.8 4.8 0 00-3.8-2c-1.6-.2-3.1.9-3.9.9s-2-.9-3.4-.9a5 5 0 00-4.2 2.6c-1.8 3.1-.5 7.7 1.3 10.2.8 1.2 1.8 2.6 3.1 2.6s1.7-.8 3.3-.8 2 .8 3.3.8 2.2-1.3 3-2.5a10 10 0 001.4-2.8 4.3 4.3 0 01-2.3-4.2zM14 5.1a4.4 4.4 0 001-3.1 4.5 4.5 0 00-2.9 1.5 4.2 4.2 0 00-1 3 3.7 3.7 0 002.9-1.4z"/></svg> Apple</button>
+      </div>
+      <p class="auth__note">Just looking around? <a href="#" data-demo style="color:var(--rust)">Explore as a guest →</a><br>Demo build: accounts are stored only in this browser.</p>
+    </form>
+    <p style="font-size:13px;color:var(--muted)"><a href="index.html">← Back to home</a></p>
+  </section>
+  <aside class="auth__visual" aria-hidden="true">
+    <div class="auth__quote glass glass--refract">“Every feeling is valid. Your journey starts where you are.”<br><small style="opacity:.75;font-family:var(--mono);font-size:11px;letter-spacing:.06em">— PEACEOFMIND</small></div>
+    <img src="assets/img/listen-sky-cutout.webp" alt="">
+    <div class="mood glass glass--refract" style="position:relative;z-index:2;align-self:flex-end;width:min(300px,100%)">
+      <h3>3,214 people checked in today</h3>
+      <div class="chips"><span class="chip">Calm</span><span class="chip">Hopeful</span><span class="chip">Happy</span></div>
+    </div>
+  </aside>
+</main>
+
+<script src="assets/js/app.js" defer></script>
+</body>
+</html>

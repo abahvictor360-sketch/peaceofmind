@@ -1,0 +1,11 @@
+{
+  "name": "peaceofmind",
+  "version": "1.0.0",
+  "private": true,
+  "description": "peaceofmind — mental wellness & online therapy website with liquid-glass UI, login and member dashboard.",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/build.mjs && npx serve public"
+  },
+  "engines": { "node": ">=18" }
+}

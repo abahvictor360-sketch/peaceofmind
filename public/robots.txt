@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /dashboard.html
+Disallow: /dashboard
 Sitemap: https://peaceofmind-wellness.vercel.app/sitemap.xml

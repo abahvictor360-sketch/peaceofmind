@@ -138,5 +138,5 @@ writeFileSync(join(root, "public/sitemap.xml"), `<?xml version="1.0" encoding="U
 ${built.map(f => `  <url><loc>${SITE}/${f === "index.html" ? "" : f.replace(/\.html$/, "")}</loc></url>`).join("\n")}
 </urlset>
 `);
-writeFileSync(join(root, "public/robots.txt"), `User-agent: *\nAllow: /\nDisallow: /dashboard.html\nSitemap: ${SITE}/sitemap.xml\n`);
+writeFileSync(join(root, "public/robots.txt"), `User-agent: *\nAllow: /\nDisallow: /dashboard\nSitemap: ${SITE}/sitemap.xml\n`);
 console.log(`Built ${built.length} indexable pages →`, built.join(", "));

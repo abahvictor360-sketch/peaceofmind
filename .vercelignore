@@ -1,2 +1,3 @@
 marketing/
 scripts/prep_images.py
+scripts/*.cjs

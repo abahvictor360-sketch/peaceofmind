@@ -4,8 +4,10 @@
 import { readFileSync, writeFileSync, readdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { createHash } from "node:crypto";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
+const ver = f => createHash("sha1").update(readFileSync(join(root, "public", f))).digest("hex").slice(0, 8);
 const SITE = process.env.SITE_URL || "https://peaceofmind-wellness.vercel.app";
 const KEYWORDS = "online therapy, mental wellness, mindfulness, meditation, anxiety support, stress relief, therapist booking, self-care app, emotional wellbeing, peaceofmind";
 
@@ -103,7 +105,7 @@ ${m.noindex ? '<meta name="robots" content="noindex">' : '<meta name="robots" co
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css">
+<link rel="stylesheet" href="assets/css/styles.css?v=${ver("assets/css/styles.css")}">
 ${file === "index.html" ? `<script type="application/ld+json">${JSON.stringify({
     "@context": "https://schema.org", "@type": "MedicalBusiness", name: "peaceofmind", url: SITE,
     description: m.description, image: img, priceRange: "$$",
@@ -125,8 +127,8 @@ ${glassFilter}
 ${meta.nav === false ? "" : nav(file, meta.nav)}
 ${body.trim()}
 ${meta.footer === false ? "" : footer}
-<script src="assets/js/app.js" defer></script>
-<script src="assets/js/motion.js" defer></script>
+<script src="assets/js/app.js?v=${ver("assets/js/app.js")}" defer></script>
+<script src="assets/js/motion.js?v=${ver("assets/js/motion.js")}" defer></script>
 </body>
 </html>
 `;

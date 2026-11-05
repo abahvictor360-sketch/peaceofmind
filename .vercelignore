@@ -1,3 +1,4 @@
 marketing/
 scripts/prep_images.py
+scripts/assemble-frames.py
 scripts/*.cjs

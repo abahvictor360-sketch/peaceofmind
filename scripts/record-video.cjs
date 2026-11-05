@@ -1,13 +1,35 @@
 const { chromium } = require('playwright');
 const mode = process.argv[2]; const outDir = process.argv[3];
 const mobile = mode === 'mobile';
-const vp = mobile ? { width: 430, height: 932 } : { width: 1920, height: 1080 };
+// Desktop: Playwright's recorder at native 1920x1080.
+// Mobile: Playwright's recorder can't handle hi-DPI phones (it pastes a 1x
+// frame into the corner of the canvas), so we stream full-resolution frames
+// over the Chrome DevTools screencast and stitch them with ffmpeg
+// (see scripts/assemble-frames.py).
+const fs = require('fs'), path = require('path');
+const vp = mobile ? { width: 390, height: 844 } : { width: 1920, height: 1080 };
+const DSF = mobile ? 3 : 1;
 const BASE = 'http://localhost:4173/';
 (async () => {
   const b = await chromium.launch();
-  const ctx = await b.newContext({ viewport: vp, deviceScaleFactor: mobile ? 2 : 1, isMobile: mobile, hasTouch: mobile,
-    recordVideo: { dir: outDir, size: mobile ? { width: 860, height: 1864 } : vp } });
+  const ctx = await b.newContext({ viewport: vp, deviceScaleFactor: DSF, isMobile: mobile, hasTouch: mobile,
+    ...(mobile ? {} : { recordVideo: { dir: outDir, size: vp } }) });
   const p = await ctx.newPage();
+  const frames = [];
+  if (mobile) {
+    const dir = path.join(outDir, 'frames'); fs.mkdirSync(dir, { recursive: true });
+    const cdp = await ctx.newCDPSession(p);
+    cdp.on('Page.screencastFrame', f => {
+      const file = path.join(dir, String(frames.length).padStart(6, '0') + '.jpg');
+      fs.writeFileSync(file, Buffer.from(f.data, 'base64'));
+      frames.push({ file, t: f.metadata.timestamp });
+      cdp.send('Page.screencastFrameAck', { sessionId: f.sessionId }).catch(() => {});
+    });
+    const start = () => cdp.send('Page.startScreencast', { format: 'jpeg', quality: 92, maxWidth: vp.width * DSF, maxHeight: vp.height * DSF, everyNthFrame: 1 }).catch(() => {});
+    await start();
+    p.on('load', start);
+    process.on('exit', () => fs.writeFileSync(path.join(outDir, 'frames.json'), JSON.stringify(frames)));
+  }
   const wait = ms => p.waitForTimeout(ms);
   const scrollTo = async (y, ms = 1800) => p.evaluate(([y, ms]) => new Promise(r => {
     const s = scrollY, d = y - s, t0 = performance.now();

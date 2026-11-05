@@ -14,19 +14,30 @@ const BASE = 'http://localhost:4173/';
     const f = t => { const k = Math.min(1, (t - t0) / ms); const e = k < .5 ? 2*k*k : 1 - Math.pow(-2*k + 2, 2) / 2; scrollTo(0, s + d * e); k < 1 ? requestAnimationFrame(f) : r(); };
     requestAnimationFrame(f); }), [y, ms]);
   const scrollToEl = async (sel, ms = 1600, off = 90) => { const y = await p.evaluate(([s, o]) => document.querySelector(s).getBoundingClientRect().top + scrollY - o, [sel, off]); await scrollTo(y, ms); };
-  const go = async (sel) => { await Promise.all([p.waitForLoadState('networkidle'), p.click(sel)]); await p.waitForLoadState('networkidle'); await wait(1200); };
-  const tap = async sel => { await p.click(sel); await wait(700); };
+  const go = async (sel) => { await Promise.all([p.waitForLoadState('networkidle'), p.click(sel, { force: true })]); await p.waitForLoadState('networkidle'); await wait(1200); };
+  const tap = async sel => { await p.click(sel, { force: true }); await wait(700); };
 
   await p.goto(BASE + 'index.html', { waitUntil: 'networkidle' });
   await p.evaluate(() => localStorage.clear());
-  await wait(2200);
+  await wait(2600);
+  const sweep = async pts => { if (mobile) return; for (const [x, y, n] of pts) await p.mouse.move(x, y, { steps: n }); };
+  await sweep([[300, 400, 10], [800, 600, 40], [1500, 350, 50], [1600, 800, 40]]);
   if (mobile) { await scrollToEl('.mood', 2200, 200); }
   await tap('.hero .chip:nth-child(1)'); await wait(600); await tap('.hero .chip:nth-child(4)'); await wait(900);
   await scrollToEl('.arc', 2200, 0); await wait(2600);
   await scrollToEl('#how-title', 2000); await wait(1500);
-  await scrollToEl('#prog-title', 2000); await wait(1400);
+  await scrollToEl('#prog-title', 2000); await wait(1000);
+  if (!mobile) {
+    for (const c of await p.$$('.programs-grid .program')) {
+      const bb = await c.boundingBox();
+      await p.mouse.move(bb.x + bb.width * .3, bb.y + bb.height * .3, { steps: 15 });
+      await p.mouse.move(bb.x + bb.width * .7, bb.y + bb.height * .6, { steps: 25 });
+    }
+    await p.mouse.move(960, 60, { steps: 15 });
+  }
   await scrollToEl('.band', 1800, 40); await wait(1400);
   await scrollToEl('#q-title', 1800); await wait(1200);
+  await scrollTo(await p.evaluate(() => document.documentElement.scrollHeight), 2600); await wait(1800);
   await scrollTo(0, 2200); await wait(500);
 
   // Programs
@@ -68,7 +79,7 @@ const BASE = 'http://localhost:4173/';
   if (mobile) await scrollToEl('#week', 1400, 200);
   await wait(1000);
   await scrollToEl('#sessions', 1400, 140); await wait(1200);
-  await scrollToEl('#orb', 1200, 200); await p.click('#breathe-btn'); await wait(4800);
+  await scrollToEl('#orb', 1200, 200); await p.click('#breathe-btn', { force: true }); await wait(4800);
   await scrollToEl('#journal-text', 1400, 200);
   await p.type('#journal-text', 'Felt calmer after today\'s breathing. Grateful.', { delay: 35 });
   await tap('#journal-form button'); await wait(1600);

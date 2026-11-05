@@ -126,6 +126,7 @@ ${meta.nav === false ? "" : nav(file, meta.nav)}
 ${body.trim()}
 ${meta.footer === false ? "" : footer}
 <script src="assets/js/app.js" defer></script>
+<script src="assets/js/motion.js" defer></script>
 </body>
 </html>
 `;

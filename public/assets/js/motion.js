@@ -74,7 +74,7 @@
     if (!en.isIntersecting) return;
     en.target.classList.add("in");
     io.unobserve(en.target);
-  }), { threshold: .12 });
+  }), { threshold: 0, rootMargin: "0px 0px 12% 0px" });
   $$(".reveal:not(.in), .footer__word").forEach(el => io.observe(el));
 
   /* ---------- Footer wordmark letters ---------- */
@@ -129,10 +129,19 @@
 
   /* ---------- Scroll progress + parallax + arc wheel (one rAF loop) ---------- */
   const bar = document.createElement("div"); bar.className = "progress-bar"; document.body.append(bar);
+  // Parallax offsets are measured from each element's own section (not the
+  // page's total scroll) and clamped, so nothing can drift onto nearby text.
+  // On narrow screens images and copy stack vertically, so only the purely
+  // decorative glow moves there.
+  const wide = () => innerWidth > 820;
   const par = [
-    [".hero__person", .10], [".hero__sun", -.18], [".page-hero__img", .12], [".band__img", -.06],
-    [".hero__copy", .16], [".auth__visual img", 0],
-  ].flatMap(([s, k]) => $$(s).map(el => ({ el, k })));
+    // [selector, speed, anchor, max px, allowed on narrow screens]
+    [".hero__person", .10, "top", 90], [".hero__sun", -.18, "top", 160, true],
+    [".page-hero__img", .12, "top", 70], [".band__img", -.06, "center", 40],
+    [".hero__copy", .12, "top", 60], [".auth__visual img", 0, "top", 0],
+  ].flatMap(([s, k, mode, max, narrow]) => $$(s).map(el => ({
+    el, k, mode, max, narrow, anchor: el.closest(".hero, .page-hero, .band, .auth__visual") || el.parentElement,
+  })));
   const wheel = $(".arc__wheel"), ticks = $(".arc__ticks"), arc = $(".arc");
   let hover = false, angle = 0, last = performance.now(), mouse = { x: 0, y: 0 }, sm = { x: 0, y: 0 };
   if (wheel) {
@@ -149,9 +158,15 @@
     bar.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
     velocity = lerp(velocity, y - lastScroll, .1); lastScroll = y;
     sm.x = lerp(sm.x, mouse.x, .06); sm.y = lerp(sm.y, mouse.y, .06);
-    for (const { el, k } of par) {
-      const mx = fine ? sm.x * (k === 0 ? 14 : 22) : 0, my = fine ? sm.y * 12 : 0;
-      el.style.translate = `${mx * (k < 0 ? -1 : 1)}px ${y * k + my}px`;
+    const isWide = wide();
+    for (const { el, k, mode, max, narrow, anchor } of par) {
+      if (!isWide && !narrow) { if (el.style.translate) el.style.translate = ""; continue; }
+      const r = anchor.getBoundingClientRect();
+      if (r.bottom < -200 || r.top > innerHeight + 200) continue; // off-screen: skip work
+      const d = mode === "center" ? r.top + r.height / 2 - innerHeight / 2 : r.top;
+      const sy = Math.max(-max, Math.min(max, -d * k));
+      const mx = fine && isWide ? sm.x * (k === 0 ? 14 : 22) : 0, my = fine && isWide ? sm.y * 12 : 0;
+      el.style.translate = `${mx * (k < 0 ? -1 : 1)}px ${sy + my}px`;
     }
     if (wheel) {
       // Base drift + a push from scroll velocity, eased so it feels physical.

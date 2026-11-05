@@ -75,7 +75,7 @@
   /* ---------------- Reveal ---------------- */
   const io = "IntersectionObserver" in window ? new IntersectionObserver(entries => {
     entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
-  }, { threshold: .12 }) : null;
+  }, { threshold: 0, rootMargin: "0px 0px 12% 0px" }) : null;
   $$(".reveal").forEach(el => io ? io.observe(el) : el.classList.add("in"));
 
   /* ---------------- Toast ---------------- */
